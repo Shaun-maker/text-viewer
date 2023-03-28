@@ -44,7 +44,21 @@ text_viewer_window_class_init (TextViewerWindowClass *klass)
 }
 
 static void
+text_viewer_window_open_file_dialog (GAction *action G_GNUC_UNUSED,
+                                     GVariant *parameter G_GNUC_UNUSED,
+                                     TextViewerWindow *self)
+{
+  printf("hello");
+}
+
+static void
 text_viewer_window_init (TextViewerWindow *self)
 {
   gtk_widget_init_template (GTK_WIDGET (self));
+
+  g_autoptr(GSimpleAction) open_action = g_simple_action_new("open", NULL);
+  g_signal_connect (open_action,
+                    "activate",
+                    G_CALLBACK (text_viewer_window__open_file_dialog),
+                    self);
 }
